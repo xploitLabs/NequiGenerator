@@ -91,3 +91,5 @@ Luego de instalar la correspondiente instalación del sistema, tienes que modifi
 <p>Y finalmente, usasré este comando para indicarle a <b>NequiGenerator</b> que almacene en esa carpeta las imágenes:
 
 - <code>nequi -d</code>
+
+<p>Ahora todas las imágenes que generes se almacenarán en dicha carpeta, y podrás acceder desde el gestor de archivos de tu preferencia.</p>
