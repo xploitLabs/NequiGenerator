@@ -32,7 +32,6 @@ class handler():
             animERROR(f"Git pull failed: {e}")
             raise
 
-
     def deprecated(self)->dict:
         echo = str(self.RP.Repo(self.SYS.path.join(querySerializer.cursor().hereFile, "..", "..", "..")).head.commit.hexsha)
         hash = str(self.RQ.get("https://api.github.com/repos/xploitLabs/NequiGenerator/commits").json()[0]["sha"])
