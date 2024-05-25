@@ -10,15 +10,22 @@ if __name__ == "__main__":
 
     print (f"{colors.R}{bnr}\n{colors.WW}")
 
+    statsDebug = apiHandler.handler().SYS.getenv("DEBUG")
+    listDebug = {"True": ["True", "true"], "False": ["false", "False"]}
+    DEBUG = True if statsDebug in listDebug["True"] else False
+
     mainExecutable.Generator.conection()
 
     animINFO("Buscando actualizaciones...", 4)
-    d = apiHandler.handler().deprecated()["STTS"]
+    d = apiHandler.handler().deprecated()["STTS"] if not DEBUG else False
     if d:
-        animERROR("El sistema encontró una nueva actualización del sistema")
+        animINFO("El sistema encontró una nueva actualización del sistema")
         response = input(INPUT("¿Actualizar sistema? [si/no] >>> "))
         if response.lower() in ["si", "s", "y", "yes"]:
             animINFO("Actualizando sistema...")
+            apiHandler.handler().pull()
+            animDONE("El sistema está actualizado, vuelve a ejecutar el sistema.")
+            sys.exit()
 
     ACTUALPATH = apiHandler.handler().SYS.path.abspath(apiHandler.handler().SYS.path.dirname(__file__))
     PATHTICKET = apiHandler.handler().SYS.path.join(ACTUALPATH, "tickets")
