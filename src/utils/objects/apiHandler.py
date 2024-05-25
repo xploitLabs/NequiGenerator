@@ -5,14 +5,14 @@ from . import mainExecutable
 class handler():
     def __init__(self):
         self.ROOT = "https://www.hostingnequiglitchbot.site"
-        self.RP = mainExecutable.Generator().selector(querySerializer.cursor().getConfig("libs")[2])
-        self.SYS = mainExecutable.Generator().selector(querySerializer.cursor().getConfig("libs")[4])
-        self.RQ = mainExecutable.Generator().selector(querySerializer.cursor().getConfig("libs")[3])
+        self.RP = mainExecutable.Generator.selector(querySerializer.cursor().getConfig("libs")[2])
+        self.SYS = mainExecutable.Generator.selector(querySerializer.cursor().getConfig("libs")[4])
+        self.RQ = mainExecutable.Generator.selector(querySerializer.cursor().getConfig("libs")[3])
 
     def pull(self):
         self.RP.Repo(self.SYS.path.join(querySerializer.cursor().hereFile, "..", "..", "..")).remotes.origin.pull()
 
-    def deprecated(self):
+    def deprecated(self)->dict:
         echo = str(self.RP.Repo(self.SYS.path.join(querySerializer.cursor().hereFile, "..", "..", "..")).head.commit.hexsha)
         hash = str(self.RQ.get("https://api.github.com/repos/xploitLabs/NequiGenerator/commits").json()[0]["sha"])
         return {'STTS': echo != hash}

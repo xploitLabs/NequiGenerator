@@ -1,10 +1,82 @@
 #!/usr/bin/env python3
 from utils.blocks import *
-from utils.objects import mainExecutable, apiHandler
+from utils import colors
+from utils.objects import mainExecutable, querySerializer, apiHandler
+converter, pathHandler = mainExecutable.Generator.selector("base64"), mainExecutable.Generator.selector("pathlib")
+import sys, random
 
 if __name__ == "__main__":
-    content = mainExecutable.Generator().initializer()
-    if not content:
-        print ("No se pudo generar la imágen.")
+    bnr = converter.b64decode(querySerializer.cursor().getConfig(converter.b64decode("YmFubmVy").decode())).decode()
+
+    print (f"{colors.R}{bnr}\n{colors.WW}")
+
+    mainExecutable.Generator.conection()
+
+    animINFO("Buscando actualizaciones...", 4)
+    d = apiHandler.handler().deprecated()["STTS"]
+    if d:
+        animERROR("El sistema encontró una nueva actualización del sistema")
+        response = input(INPUT("¿Actualizar sistema? [si/no] >>> "))
+        if response.lower() in ["si", "s", "y", "yes"]:
+            animINFO("Actualizando sistema...")
+
+    ACTUALPATH = apiHandler.handler().SYS.path.abspath(apiHandler.handler().SYS.path.dirname(__file__))
+    PATHTICKET = apiHandler.handler().SYS.path.join(ACTUALPATH, "tickets")
+
+    objectCONFIG = querySerializer.cursor.ParserJson(apiHandler.handler().SYS.path.join(ACTUALPATH, "config", "config.json"))
+    CONFIG = objectCONFIG.loadJSON()
+
+    animINFO("Cargando la base de datos...", 4)
+
+    listRegisters = CONFIG.get("creations", [])
+
+    dataClient = {}
+
+    if len(listRegisters):
+        animDONE("Tus registros son:\n", 4)
+
+        for e, o in enumerate(listRegisters):
+            print (f"{colors.WHITE}{e+1}{colors.RR}) {colors.WHITE}{o['nequiaccount']} {colors.GG}| {colors.WHITE}{o['name']}")
+        
+        print()
+        animINFO(f"Selecciona el número que desees o pon {colors.CC}0{colors.WW} para registrar uno nuevo.", 4)
+        userSelection = int(input(f">>> {colors.CC}"))
+        if userSelection:
+            if userSelection > len(listRegisters):
+                animERROR("El número especificado no está en los registros.")
+                sys.exit()
+            objectClient = listRegisters[userSelection-1]
+            dataClient["account"] = objectClient["nequiaccount"]
+            dataClient["name"] = objectClient["name"]
+        else:
+            dataClient["account"] = int(input(INPUT("Pon el ID del la cuenta nueva: ")))
+            dataClient["name"] = input(INPUT("Pon su nombre: "))
+            listRegisters.append({"nequiaccount": dataClient["account"], "name": dataClient["name"]})
+            objectCONFIG.saveJSON(CONFIG)
+            animINFO("Cuenta almacenada en la base de datos")
+        dataClient["value"] = int(input(INPUT("Pon el valor a pagar: ")))
     else:
-        open("output.png", "wb").write(content["ListAux"][-1].content)
+        dataClient["account"] = int(input(INPUT("Pon el ID del la cuenta nueva: ")))
+        dataClient["name"] = input(INPUT("Pon su nombre: "))
+        listRegisters.append({"nequiaccount": dataClient["account"], "name": dataClient["name"]})
+        CONFIG["creations"] = listRegisters
+        objectCONFIG.saveJSON(CONFIG)
+        dataClient["value"] = int(input(INPUT("Pon el valor a pagar: ")))
+
+        animINFO("Cuenta almacenada en la base de datos")
+
+    if pathHandler.Path(PATHTICKET).exists():
+        if not pathHandler.Path(PATHTICKET).is_dir():
+            animERROR("'tickets' tiene que ser una carpeta!")
+            sys.exit()
+    else:
+        apiHandler.handler().SYS.mkdir(PATHTICKET)
+
+    content = mainExecutable.Generator(dataClient["account"], dataClient["name"], dataClient["value"]).initializer()
+
+    if not content:
+        animERROR("No se pudo generar la imagen.")
+    else:
+        FILEROUTE = apiHandler.handler().SYS.path.join(PATHTICKET, f"ticket_{''.join(random.sample(list('1234567890'), 5))}.png")
+        open(FILEROUTE, "wb").write(content["ListAux"][-1].content)
+        animDONE(f"El sistema logró guardar tu imagen en < {FILEROUTE} >")

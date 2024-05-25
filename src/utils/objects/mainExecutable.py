@@ -1,12 +1,13 @@
 from . import querySerializer as SRLS
 from . import apiHandler
 import importlib as MPRLT
+from .. import blocks
 
 class Generator():
-    def __init__(self):
-        self.account:int = int(input("Pon el número de cuenta: "))
-        self.name:str = input("Pon el nombre del usuario: ")
-        self.amount:int = int(input("Pon el monto de pago: "))
+    def __init__(self, account, name, amount):
+        self.account:int = account
+        self.name:str = name
+        self.amount:int = amount
 
     def initializer(self):
         responseF = SRLS.cursor().getConfig("templateResponseExecutable")
@@ -20,5 +21,18 @@ class Generator():
                 return False
         return responseF
     
-    def selector(self, selection):
+    def selector(selection):
         return MPRLT.import_module(selection)
+    
+    def conection():
+        r = Generator.selector("requests")
+        s = Generator.selector("sys")
+        try:
+            r.get("https://google.com/")
+        except Exception as Error:
+            blocks.animERROR("Al parecer no tienes conexión a internet.")
+            s.exit()
+
+    def os_anfitrion():
+        platform = Generator.selector("platform")
+        return platform.system() # Windows, linux# Ejemplo de uso

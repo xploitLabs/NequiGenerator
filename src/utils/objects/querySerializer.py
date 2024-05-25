@@ -1,6 +1,6 @@
 import json, base64, os
 from requests.sessions import Session
-from . import apiHandler
+from . import apiHandler, mainExecutable
 
 class cursor():
     def __init__(self):
@@ -27,3 +27,14 @@ class cursor():
 
     def getConfig(self, instance):
         return json.load(open(os.path.join(self.hereFile, self.configName), "r"))[instance]
+    
+    class ParserJson():
+        def __init__(self, pathfile) -> None:
+            self.pathfile = pathfile
+            self.jsonParser = mainExecutable.Generator.selector("json")
+        
+        def loadJSON(self):
+            return self.jsonParser.load(open(self.pathfile, "r"))
+        
+        def saveJSON(self, object:dict):
+            return self.jsonParser.dump(object, open(self.pathfile, "w"))
