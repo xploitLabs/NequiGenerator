@@ -17,7 +17,7 @@ class handler():
 
         try:
             # Stash changes to config.json if there are any
-            if configUser.exists() and repo.is_dirty(path=configUser):
+            if repo.is_dirty(path=configUser):
                 repo.git.stash('save', 'Auto stash config.json before pull', configUser)
 
             # Perform the pull
