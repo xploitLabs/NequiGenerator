@@ -9,6 +9,7 @@ if __name__ == "__main__":
     bnr = converter.b64decode(querySerializer.cursor().getConfig(converter.b64decode("YmFubmVy").decode())).decode()
 
     print (f"{colors.R}{bnr}\n{colors.WW}")
+    animINFO("Presiona CTRL + C para cerrar el programa.", 6)
 
     statsDebug = apiHandler.handler().SYS.getenv("DEBUG")
     listDebug = {"True": ["True", "true"], "False": ["false", "False"]}
