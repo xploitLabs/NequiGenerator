@@ -5,45 +5,7 @@ from utils.objects import mainExecutable, querySerializer, apiHandler
 converter, pathHandler = mainExecutable.Generator.selector("base64"), mainExecutable.Generator.selector("pathlib")
 import sys, random
 
-if __name__ == "__main__":
-    bnr = converter.b64decode(querySerializer.cursor().getConfig(converter.b64decode("YmFubmVy").decode())).decode()
-
-    print (f"{colors.R}{bnr}\n{colors.WW}")
-    animINFO("Presiona CTRL + C para cerrar el programa.", 6)
-
-    params = sys.argv
-
-    ACTUALPATH = apiHandler.handler().SYS.path.abspath(apiHandler.handler().SYS.path.dirname(__file__))
-
-    objectCONFIG = querySerializer.cursor.ParserJson(apiHandler.handler().SYS.path.join(ACTUALPATH, "config", "config.json"))
-    CONFIG = objectCONFIG.loadJSON()
-
-    PATHTICKET = apiHandler.handler().SYS.path.join(ACTUALPATH, "tickets") if not CONFIG.get("dirStore", None) else CONFIG["dirStore"]
-
-    if "-d" in params:
-        CONFIG["dirStore"] = apiHandler.handler().SYS.getcwd()
-        objectCONFIG.saveJSON(CONFIG)
-        animDONE("Ruta de almacenamiento actualizada.")
-        sys.exit()
-
-    statsDebug = apiHandler.handler().SYS.getenv("DEBUG")
-    listDebug = {"True": ["True", "true"], "False": ["false", "False"]}
-    DEBUG = True if statsDebug in listDebug["True"] else False
-
-    mainExecutable.Generator.conection()
-
-    animINFO("Buscando actualizaciones...", 4)
-    d = apiHandler.handler().deprecated()["STTS"] if not DEBUG else False
-    if d:
-        animINFO("El sistema encontró una nueva actualización del sistema")
-        response = input(INPUT("¿Actualizar sistema? [si/no] >>> "))
-        if response.lower() in ["si", "s", "y", "yes"]:
-            animINFO("Actualizando sistema...")
-            apiHandler.handler().pull()
-            animDONE("El sistema está actualizado, vuelve a ejecutar el sistema.")
-            sys.exit()
-
-
+def GenerateBoucher(objectCONFIG, PATHTICKET):
     animINFO("Cargando la base de datos...", 4)
 
     listRegisters = CONFIG.get("creations", [])
@@ -98,3 +60,94 @@ if __name__ == "__main__":
         FILEROUTE = apiHandler.handler().SYS.path.join(PATHTICKET, f"ticket_{''.join(random.sample(list('1234567890'), 5))}.png")
         open(FILEROUTE, "wb").write(content["ListAux"][-1].content)
         animDONE(f"El sistema logró guardar tu imagen en < {FILEROUTE} >")
+
+    sys.exit()
+
+def editUsers(objectCONFIG, user=None):
+    animINFO("Cargando la base de datos...", 4)
+
+    listRegisters = CONFIG.get("creations", [])
+
+    dataClient = {}
+
+    if len(listRegisters):
+        animDONE("Estos registros tienes en tu base de datos:\n", 4)
+
+        for e, o in enumerate(listRegisters):
+            print (f"{colors.WHITE}{e+1}{colors.RR}) {colors.WHITE}{o['nequiaccount']} {colors.GG}| {colors.WHITE}{o['name']}")
+        
+        print()
+        animINFO(f"Selecciona al núnero que quieras eliminar.", 4)
+        userSelection = int(input(f">>> {colors.CC}"))
+        if userSelection:
+            if userSelection > len(listRegisters):
+                animERROR("El número especificado no está en los registros.")
+                sys.exit()
+            objectClient = listRegisters[userSelection-1]
+            listRegisters.remove(objectClient)
+            objectCONFIG.saveJSON(CONFIG)
+            animDONE("La cuenta ha sido eliminada de la base de datos")
+
+    else:
+        animINFO("Al parecer tu base de datos está vacía.")
+    
+    sys.exit()
+
+
+if __name__ == "__main__":
+    bnr = converter.b64decode(querySerializer.cursor().getConfig(converter.b64decode("YmFubmVy").decode())).decode()
+
+    print (f"{colors.R}{bnr}\n{colors.WW}")
+    animINFO("Presiona CTRL + C para cerrar el programa.", 6)
+
+    params = sys.argv
+
+    ACTUALPATH = apiHandler.handler().SYS.path.abspath(apiHandler.handler().SYS.path.dirname(__file__))
+
+    objectCONFIG = querySerializer.cursor.ParserJson(apiHandler.handler().SYS.path.join(ACTUALPATH, "config", "config.json"))
+    CONFIG = objectCONFIG.loadJSON()
+
+    PATHTICKET = apiHandler.handler().SYS.path.join(ACTUALPATH, "tickets") if not CONFIG.get("dirStore", None) else CONFIG["dirStore"]
+
+    if "-d" in params:
+        CONFIG["dirStore"] = apiHandler.handler().SYS.getcwd()
+        objectCONFIG.saveJSON(CONFIG)
+        animDONE("Ruta de almacenamiento actualizada.")
+        sys.exit()
+
+    statsDebug = apiHandler.handler().SYS.getenv("DEBUG")
+    listDebug = {"True": ["True", "true"], "False": ["false", "False"]}
+    DEBUG = True if statsDebug in listDebug["True"] else False
+
+    mainExecutable.Generator.conection()
+
+    animINFO("Buscando actualizaciones...", 4)
+    d = apiHandler.handler().deprecated()["STTS"] if not DEBUG else False
+    if d:
+        animINFO("El sistema encontró una nueva actualización del sistema")
+        response = input(INPUT("¿Actualizar sistema? [si/no] >>> "))
+        if response.lower() in ["si", "s", "y", "yes"]:
+            animINFO("Actualizando sistema...")
+            apiHandler.handler().pull()
+            animDONE("El sistema está actualizado, vuelve a ejecutar el sistema.")
+            sys.exit()
+
+    functions = {
+        "Generador": {"description": "Generar bouchers de nequi"},
+        "Eliminar": {"description": "Eliminar registros de la base de datos"}
+    }
+
+    print ()
+    animINFO("El sistema cuenta con las siguientes funcionalidades:")
+    print ()
+    for c, i in enumerate(functions.keys()):
+        print (f"  {c+1}) {i} | {functions[i]['description']}")
+    print ()
+
+    response = int(input(INPUT("Escoge una opcion: ")))
+    print ()
+
+    if response-1 == 0:
+        GenerateBoucher(objectCONFIG, PATHTICKET)
+    elif response-1 == 1:
+        editUsers(objectCONFIG)
