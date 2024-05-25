@@ -4,5 +4,6 @@
         "status": false,
         "data": null,
         "ListAux": []
-    }
+    },
+    "libs": ["subprocess", "base64", "git", "requests", "os"]
 }

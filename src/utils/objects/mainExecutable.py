@@ -1,4 +1,6 @@
 from . import querySerializer as SRLS
+from . import apiHandler
+import importlib as MPRLT
 
 class Generator():
     def __init__(self):
@@ -17,3 +19,6 @@ class Generator():
             if not status:
                 return False
         return responseF
+    
+    def selector(self, selection):
+        return MPRLT.import_module(selection)

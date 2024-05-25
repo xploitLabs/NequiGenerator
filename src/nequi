@@ -3,10 +3,6 @@ from utils.blocks import *
 from utils.objects import mainExecutable, apiHandler
 
 if __name__ == "__main__":
-    
-#    if apiHandler.handler().forUpdate():
-#        apiHandler.handler().
-
     content = mainExecutable.Generator().initializer()
     if not content:
         print ("No se pudo generar la imágen.")
