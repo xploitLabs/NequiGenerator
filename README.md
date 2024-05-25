@@ -69,3 +69,25 @@ Para instalar correctamente el bot, sigue los siguientes pasos:
 |:------------:|:------------:|
 |   Español   |   ✅   |
 |   Ingles     |   ❌   |
+
+# GUÍA DE USO PARA USUARIOS DE TERMUX
+
+Luego de instalar la correspondiente instalación del sistema, tienes que modificar la ruta de almacenamiento de las imágenes que se generen, para ello, ejecuta el siguiente comando:
+
+- <code>termux-setup-storage</code>
+
+<p>Luego de ello, ve al directorio raíz con:</p>
+
+- <code>cd ~</code>
+
+<p>Al ver los archivos en tu ruta con el comando <code>ls</code>, verás que hay una carpeta llamada <code>storage</code>, entra a dicha carpeta con:
+
+- <code>cd storage</code>
+
+<p>Ahora, ve <code>shared</code> con <code>cd shared</code> y lista el contenido actual con <code>ls</code>, y elige la carpeta de tu preferencia, por ejemplo, yo escogeré la carpeta <code>DCIM</code>, asi que entraré a esa carpeta con:
+
+- <code>cd DCIM</code>
+
+<p>Y finalmente, usasré este comando para indicarle a <b>NequiGenerator</b> que almacene en esa carpeta las imágenes:
+
+- <code>nequi -d</code>

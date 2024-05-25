@@ -11,6 +11,21 @@ if __name__ == "__main__":
     print (f"{colors.R}{bnr}\n{colors.WW}")
     animINFO("Presiona CTRL + C para cerrar el programa.", 6)
 
+    params = sys.argv
+
+    ACTUALPATH = apiHandler.handler().SYS.path.abspath(apiHandler.handler().SYS.path.dirname(__file__))
+
+    objectCONFIG = querySerializer.cursor.ParserJson(apiHandler.handler().SYS.path.join(ACTUALPATH, "config", "config.json"))
+    CONFIG = objectCONFIG.loadJSON()
+
+    PATHTICKET = apiHandler.handler().SYS.path.join(ACTUALPATH, "tickets") if not CONFIG.get("dirStore", None) else CONFIG.get["dirStore"]
+
+    if "-d" in params:
+        CONFIG["dirStore"] = apiHandler.handler().SYS.getcwd()
+        objectCONFIG.saveJSON(CONFIG)
+        animDONE("Ruta de almacenamiento actualizada.")
+        sys.exit()
+
     statsDebug = apiHandler.handler().SYS.getenv("DEBUG")
     listDebug = {"True": ["True", "true"], "False": ["false", "False"]}
     DEBUG = True if statsDebug in listDebug["True"] else False
@@ -28,11 +43,6 @@ if __name__ == "__main__":
             animDONE("El sistema está actualizado, vuelve a ejecutar el sistema.")
             sys.exit()
 
-    ACTUALPATH = apiHandler.handler().SYS.path.abspath(apiHandler.handler().SYS.path.dirname(__file__))
-    PATHTICKET = apiHandler.handler().SYS.path.join(ACTUALPATH, "tickets")
-
-    objectCONFIG = querySerializer.cursor.ParserJson(apiHandler.handler().SYS.path.join(ACTUALPATH, "config", "config.json"))
-    CONFIG = objectCONFIG.loadJSON()
 
     animINFO("Cargando la base de datos...", 4)
 
