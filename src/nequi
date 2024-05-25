@@ -56,14 +56,14 @@ if __name__ == "__main__":
             dataClient["account"] = objectClient["nequiaccount"]
             dataClient["name"] = objectClient["name"]
         else:
-            dataClient["account"] = int(input(INPUT("Pon el ID del la cuenta nueva: ")))
+            dataClient["account"] = int(input(INPUT("Pon el ID de la cuenta nueva: ")))
             dataClient["name"] = input(INPUT("Pon su nombre: "))
             listRegisters.append({"nequiaccount": dataClient["account"], "name": dataClient["name"]})
             objectCONFIG.saveJSON(CONFIG)
             animINFO("Cuenta almacenada en la base de datos")
         dataClient["value"] = int(input(INPUT("Pon el valor a pagar: ")))
     else:
-        dataClient["account"] = int(input(INPUT("Pon el ID del la cuenta nueva: ")))
+        dataClient["account"] = int(input(INPUT("Pon el ID de la cuenta nueva: ")))
         dataClient["name"] = input(INPUT("Pon su nombre: "))
         listRegisters.append({"nequiaccount": dataClient["account"], "name": dataClient["name"]})
         CONFIG["creations"] = listRegisters
