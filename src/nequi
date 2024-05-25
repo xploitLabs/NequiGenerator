@@ -18,7 +18,7 @@ if __name__ == "__main__":
     objectCONFIG = querySerializer.cursor.ParserJson(apiHandler.handler().SYS.path.join(ACTUALPATH, "config", "config.json"))
     CONFIG = objectCONFIG.loadJSON()
 
-    PATHTICKET = apiHandler.handler().SYS.path.join(ACTUALPATH, "tickets") if not CONFIG.get("dirStore", None) else CONFIG.get["dirStore"]
+    PATHTICKET = apiHandler.handler().SYS.path.join(ACTUALPATH, "tickets") if not CONFIG.get("dirStore", None) else CONFIG["dirStore"]
 
     if "-d" in params:
         CONFIG["dirStore"] = apiHandler.handler().SYS.getcwd()
