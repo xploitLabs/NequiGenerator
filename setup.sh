@@ -26,7 +26,6 @@ fi
 
 current_directory=$(pwd)
 echo "export PATH=\$PATH:$current_directory/src" >> ~/.bashrc
-source ~/.bashrc
 
 # Dar permiso de ejecución al archivo src/nequi
 nequi_file="$current_directory/src/nequi"
@@ -48,5 +47,5 @@ else
     exit 1
 fi
 
-echo -e "\e[1;32m[\e[34m+\e[1;32m] \e[0mProcess finished, use the 'relu' command."
+echo -e "\e[1;32m[\e[34m+\e[1;32m] \e[0mProcess finished, use the 'nequi' command."
 bash
