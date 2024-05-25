@@ -25,7 +25,7 @@ else
 fi
 
 current_directory=$(pwd)
-echo "export PATH=\$PATH:$current_directory/source" >> ~/.bashrc
+echo "export PATH=\$PATH:$current_directory/src" >> ~/.bashrc
 source ~/.bashrc
 
 # Dar permiso de ejecución al archivo src/nequi
