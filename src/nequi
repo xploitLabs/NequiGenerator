@@ -77,7 +77,7 @@ def editUsers(objectCONFIG, user=None):
             print (f"{colors.WHITE}{e+1}{colors.RR}) {colors.WHITE}{o['nequiaccount']} {colors.GG}| {colors.WHITE}{o['name']}")
         
         print()
-        animINFO(f"Selecciona al número que quieras eliminar.", 4)
+        animINFO(f"Selecciona al número que quieras eliminar o pon {colors.CC}0{colors.WW} para cancelar la acción.", 4)
         userSelection = int(input(f">>> {colors.CC}"))
         if userSelection:
             if userSelection > len(listRegisters):
@@ -87,6 +87,9 @@ def editUsers(objectCONFIG, user=None):
             listRegisters.remove(objectClient)
             objectCONFIG.saveJSON(CONFIG)
             animDONE("La cuenta ha sido eliminada de la base de datos")
+        else:
+            animINFO("Cerrando sistema...", 6)
+            sys.exit()
 
     else:
         animINFO("Al parecer tu base de datos está vacía.")
