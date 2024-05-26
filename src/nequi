@@ -126,9 +126,10 @@ if __name__ == "__main__":
     if d:
         animINFO("El sistema encontró una nueva actualización del sistema, estas son las novedades que trae:")
         news = apiHandler.handler().getNews()
-        for e, n in enumerate(news):
-            print (f"{e}{colors.RED}){colors.WHITE} {n}")
-        print ()
+        if len(news):
+            for e, n in enumerate(news):
+                print (f"{e}{colors.RED}){colors.WHITE} {n}")
+            print ()
         response = input(INPUT("¿Actualizar sistema? [si/no] >>> "))
         if response.lower() in ["si", "s", "y", "yes"]:
             animINFO("Actualizando sistema...")
