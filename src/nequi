@@ -88,6 +88,7 @@ def editUsers(objectCONFIG, user=None):
             objectCONFIG.saveJSON(CONFIG)
             animDONE("La cuenta ha sido eliminada de la base de datos")
         else:
+            print ()
             animINFO("Cerrando sistema...", 6)
             sys.exit()
 
