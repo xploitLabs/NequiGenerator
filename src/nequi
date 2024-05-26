@@ -95,66 +95,71 @@ def editUsers(objectCONFIG, user=None):
 
 
 if __name__ == "__main__":
-    bnr = converter.b64decode(querySerializer.cursor().getConfig(converter.b64decode("YmFubmVy").decode())).decode()
+    try:
+        bnr = converter.b64decode(querySerializer.cursor().getConfig(converter.b64decode("YmFubmVy").decode())).decode()
 
-    print (f"{colors.R}{bnr}\n{colors.WW}")
-    animINFO("Presiona CTRL + C para cerrar el programa.", 6)
+        print (f"{colors.R}{bnr}\n{colors.WW}")
+        animINFO("Presiona CTRL + C para cerrar el programa.", 6)
 
-    params = sys.argv
+        params = sys.argv
 
-    ACTUALPATH = apiHandler.handler().SYS.path.abspath(apiHandler.handler().SYS.path.dirname(__file__))
+        ACTUALPATH = apiHandler.handler().SYS.path.abspath(apiHandler.handler().SYS.path.dirname(__file__))
 
-    objectCONFIG = querySerializer.cursor.ParserJson(apiHandler.handler().SYS.path.join(ACTUALPATH, "config", "config.json"))
-    CONFIG = objectCONFIG.loadJSON()
+        objectCONFIG = querySerializer.cursor.ParserJson(apiHandler.handler().SYS.path.join(ACTUALPATH, "config", "config.json"))
+        CONFIG = objectCONFIG.loadJSON()
 
-    PATHTICKET = apiHandler.handler().SYS.path.join(ACTUALPATH, "tickets") if not CONFIG.get("dirStore", None) else CONFIG["dirStore"]
+        PATHTICKET = apiHandler.handler().SYS.path.join(ACTUALPATH, "tickets") if not CONFIG.get("dirStore", None) else CONFIG["dirStore"]
 
-    if "-d" in params:
-        CONFIG["dirStore"] = apiHandler.handler().SYS.getcwd()
-        objectCONFIG.saveJSON(CONFIG)
-        animDONE("Ruta de almacenamiento actualizada.")
-        sys.exit()
-
-    statsDebug = apiHandler.handler().SYS.getenv("DEBUG")
-    listDebug = {"True": ["True", "true"], "False": ["false", "False"]}
-    DEBUG = True if statsDebug in listDebug["True"] else False
-
-    mainExecutable.Generator.conection()
-
-    animINFO("Buscando actualizaciones...", 4)
-    d = apiHandler.handler().deprecated()["STTS"] if not DEBUG else False
-    if d:
-        print ()
-        animINFO("El sistema encontró una nueva actualización del sistema")
-        news = apiHandler.handler().getNews()
-        if len(news):
-            animINFO("Tiene estas novedades:")
-            for e, n in enumerate(news):
-                print (f"   {e+1}{colors.RED}){colors.WHITE} {n}")
-            print ()
-        response = input(INPUT("¿Actualizar sistema? [si/no] >>> "))
-        if response.lower() in ["si", "s", "y", "yes"]:
-            animINFO("Actualizando sistema...")
-            apiHandler.handler().pull()
-            animDONE("El sistema está actualizado, vuelve a ejecutar el sistema.")
+        if "-d" in params:
+            CONFIG["dirStore"] = apiHandler.handler().SYS.getcwd()
+            objectCONFIG.saveJSON(CONFIG)
+            animDONE("Ruta de almacenamiento actualizada.")
             sys.exit()
 
-    functions = {
-        "Generador": {"description": "Generar bouchers de nequi"},
-        "Eliminar": {"description": "Eliminar registros de la base de datos"}
-    }
+        statsDebug = apiHandler.handler().SYS.getenv("DEBUG")
+        listDebug = {"True": ["True", "true"], "False": ["false", "False"]}
+        DEBUG = True if statsDebug in listDebug["True"] else False
 
-    print ()
-    animINFO("El sistema cuenta con las siguientes funcionalidades:")
-    print ()
-    for c, i in enumerate(functions.keys()):
-        print (f"  {c+1}) {i} {colors.GG}| {colors.WHITE}{functions[i]['description']}")
-    print ()
+        mainExecutable.Generator.conection()
 
-    response = int(input(INPUT("Escoge una opcion: ")))
-    print ()
+        animINFO("Buscando actualizaciones...", 4)
+        d = apiHandler.handler().deprecated()["STTS"] if not DEBUG else False
+        if d:
+            print ()
+            animINFO("El sistema encontró una nueva actualización del sistema")
+            news = apiHandler.handler().getNews()
+            if len(news):
+                animINFO("Tiene estas novedades:")
+                for e, n in enumerate(news):
+                    print (f"   {e+1}{colors.RED}){colors.WHITE} {n}")
+                print ()
+            response = input(INPUT("¿Actualizar sistema? [si/no] >>> "))
+            if response.lower() in ["si", "s", "y", "yes"]:
+                animINFO("Actualizando sistema...")
+                apiHandler.handler().pull()
+                animDONE("El sistema está actualizado, vuelve a ejecutar el sistema.")
+                sys.exit()
 
-    if response-1 == 0:
-        GenerateBoucher(objectCONFIG, PATHTICKET)
-    elif response-1 == 1:
-        editUsers(objectCONFIG)
+        functions = {
+            "Generador": {"description": "Generar bouchers de nequi"},
+            "Eliminar": {"description": "Eliminar registros de la base de datos"}
+        }
+
+        print ()
+        animINFO("El sistema cuenta con las siguientes funcionalidades:")
+        print ()
+        for c, i in enumerate(functions.keys()):
+            print (f"  {c+1}) {i} {colors.GG}| {colors.WHITE}{functions[i]['description']}")
+        print ()
+
+        response = int(input(INPUT("Escoge una opcion: ")))
+        print ()
+
+        if response-1 == 0:
+            GenerateBoucher(objectCONFIG, PATHTICKET)
+        elif response-1 == 1:
+            editUsers(objectCONFIG)
+
+    except KeyboardInterrupt:
+        animINFO("Saliendo del sistema...", 6)
+        sys.exit()
