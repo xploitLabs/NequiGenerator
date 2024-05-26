@@ -124,9 +124,10 @@ if __name__ == "__main__":
     animINFO("Buscando actualizaciones...", 4)
     d = apiHandler.handler().deprecated()["STTS"] if not DEBUG else False
     if d:
-        animINFO("El sistema encontró una nueva actualización del sistema, estas son las novedades que tiene:")
+        animINFO("El sistema encontró una nueva actualización del sistema")
         news = apiHandler.handler().getNews()
         if len(news):
+            animINFO("Tiene estas novedades:")
             for e, n in enumerate(news):
                 print (f"{e}{colors.RED}){colors.WHITE} {n}")
             print ()
