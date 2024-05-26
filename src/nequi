@@ -165,5 +165,6 @@ if __name__ == "__main__":
             editUsers(objectCONFIG)
 
     except KeyboardInterrupt:
+        print ()
         animINFO("Saliendo del sistema...", 6)
         sys.exit()
