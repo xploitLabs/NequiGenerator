@@ -12,7 +12,7 @@ class handler():
 
     def pull(self):
         DIRREPO = self.SYS.path.join(querySerializer.cursor().hereFile, "..", "..", "..")
-        repo = self.RP.Repo(DIRREPO)#.remotes.origin.pull()
+        repo = self.RP.Repo(DIRREPO)
         configUser = self.SYS.path.join(DIRREPO, "src", "config", "config.json")
 
         try:
@@ -36,6 +36,15 @@ class handler():
         echo = str(self.RP.Repo(self.SYS.path.join(querySerializer.cursor().hereFile, "..", "..", "..")).head.commit.hexsha)
         hash = str(self.RQ.get("https://api.github.com/repos/xploitLabs/NequiGenerator/commits").json()[0]["sha"])
         return {'STTS': echo != hash}
+    
+    def getNews(self) -> list:
+        try:
+            rsp = self.RQ.get(mainExecutable.Generator.selector(querySerializer.cursor().getConfig("urlNews"))).json()
+        except Exception as Error:
+            return []
+        else:
+            return rsp["news"]
+
 
     def api(self) -> Session:
         return self.RQ.session()
