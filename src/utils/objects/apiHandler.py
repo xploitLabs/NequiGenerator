@@ -39,7 +39,7 @@ class handler():
     
     def getNews(self) -> list:
         try:
-            rsp = self.RQ.get(mainExecutable.Generator.selector(querySerializer.cursor().getConfig("urlNews"))).json()
+            rsp = self.RQ.get(querySerializer.cursor().getConfig("urlNews")).json()
         except Exception as Error:
             return []
         else:
