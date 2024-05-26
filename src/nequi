@@ -131,7 +131,7 @@ if __name__ == "__main__":
             if len(news):
                 animINFO("Tiene estas novedades:")
                 for e, n in enumerate(news):
-                    print (f"   {e+1}{colors.RED}){colors.WHITE} {n}")
+                    print (f"   {colors.RED}-{colors.WHITE} {n}")
                 print ()
             response = input(INPUT("¿Actualizar sistema? [si/no] >>> "))
             if response.lower() in ["si", "s", "y", "yes"]:
