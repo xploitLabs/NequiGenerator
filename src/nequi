@@ -9,7 +9,7 @@ def closeSystem():
     sys.exit()
 
 def GenerateBoucher(objectCONFIG, PATHTICKET):
-    animERROR("El sistema está suspendido, pero pronto será actualizado!.\n\n- xploitLabs")
+    animERROR("No te preocupes por usar tu terminal para generar bouchers!, ahora puedes generar los tuyos en mi web!: https://nequi-generator.vercel.app/ | Si quieres contactarme, háblame!: Another man: +54 9 11 5610-6122")
     closeSystem()
     animINFO("Cargando la base de datos...", 4)
 
@@ -69,7 +69,7 @@ def GenerateBoucher(objectCONFIG, PATHTICKET):
     sys.exit()
 
 def editUsers(objectCONFIG, user=None):
-    animERROR("El sistema está suspendido, ejecuta este sistema en 2 semanas para verificar si hay nuevas actualizaciones, gracias por usar mi sistema :)\n\n- xploitLabs")
+    animERROR("No te preocupes por usar tu terminal para generar bouchers!, ahora puedes generar los tuyos en mi web!: https://nequi-generator.vercel.app/ | Si quieres contactarme, háblame!: Another man: +54 9 11 5610-6122")
     closeSystem()
     animINFO("Cargando la base de datos...", 4)
 
